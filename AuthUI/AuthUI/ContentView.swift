@@ -8,14 +8,77 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var index = 0
+    @Namespace var name
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Image("logo")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 80, height: 80)
+
+            HStack(spacing: 0) {
+                Button(action: {
+                    withAnimation(.spring()) {
+                        index = 0
+                    }
+                }) {
+                    VStack {
+                        Text("Sign In")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(index == 0 ? .blue : .gray)
+
+                        ZStack {
+                            Capsule().fill(Color.black.opacity(0.05))
+                                .frame(height: 5)
+
+                            if index == 0 {
+                                Capsule().fill(
+                                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color.pink]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                ).frame(height: 5)
+                                  //  .matchedGeometryEffect(id: "Tab", in: name)
+                            }
+                        }
+                    }
+                }
+
+                Button(action: {
+                    withAnimation(.spring()) {
+                        index = 1
+                    }
+                }) {
+                    VStack {
+                        Text("Sign Up")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .foregroundColor(index == 1 ? .blue : .gray)
+
+                        ZStack {
+                            Capsule().fill(Color.black.opacity(0.05))
+                                .frame(height: 5)
+
+                            if index == 1 {
+                                Capsule().fill(
+                                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color.pink]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                ).frame(height: 5)
+                                    //.matchedGeometryEffect(id: "Tab", in: name)
+                            }
+                        }
+                    }
+                }
+            }.padding(.top, 30)
+            
+            if index == 0 {
+                LogIn()
+            }else {
+                SignUp()
+            }
         }
-        .padding()
+        
+       
+        
     }
 }
 
